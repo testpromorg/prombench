@@ -1,0 +1,13 @@
+presubmits:
+
+  prometheus/prometheus:
+  - name: sayhello
+    agent: kubernetes
+    always_run: false
+    skip_report: false
+    trigger: "hello"
+    rerun_command: "hello"
+    spec:
+      containers:
+      - image: docker.io/hello-world:latest
+        imagePullPolicy: Always
