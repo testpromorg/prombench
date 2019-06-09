@@ -1,38 +1,35 @@
-apiVersion: extensions/v1beta1
+apiVersion: apps/v1
 kind: Deployment
 metadata:
   namespace: default
-  name: plank
+  name: horologium
   labels:
-    app: plank
+    app: horologium
 spec:
   replicas: 1 # Do not scale up.
   strategy:
     type: Recreate
+  selector:
+    matchLabels:
+      app: horologium
   template:
     metadata:
       labels:
-        app: plank
+        app: horologium
     spec:
-      serviceAccountName: "plank"
+      serviceAccountName: "horologium"
+      terminationGracePeriodSeconds: 30
       containers:
-      - name: plank
-        image: gcr.io/k8s-prow/plank:v20190607-8a7f32bfd
+      - name: horologium
+        image: gcr.io/k8s-prow/horologium:v20190607-8a7f32bfd
         args:
-        - --dry-run=false
-        - --github-endpoint=https://api.github.com
         - --config-path=/etc/config/config.yaml
+        - --dry-run=false
         volumeMounts:
-        - name: oauth
-          mountPath: /etc/github
-          readOnly: true
         - name: config
           mountPath: /etc/config
           readOnly: true
       volumes:
-      - name: oauth
-        secret:
-          secretName: oauth-token
       - name: config
         configMap:
           name: config

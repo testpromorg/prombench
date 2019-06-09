@@ -444,6 +444,7 @@ func (c *K8s) customResourceApply(resource runtime.Object) error {
 	case "v1beta1":
 		client := c.ApiExtClient.ApiextensionsV1beta1().CustomResourceDefinitions()
 		list, err := client.List(apiMetaV1.ListOptions{})
+        // TODO: (geekodour) update of CRD not working it seems
 		if err != nil {
 			return errors.Wrapf(err, "error listing resource : %v, name: %v", kind, req.Name)
 		}

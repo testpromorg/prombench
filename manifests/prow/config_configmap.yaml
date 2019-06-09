@@ -33,9 +33,12 @@ data:
         size_limit: 500000000 # 500MB
         gcs_browser_prefix: https://console.cloud.google.com/storage/browser/
         viewers:
-          "started.json|finished.json": ["metadata-viewer"]
-          "build-log.txt": ["buildlog-viewer"]
-          "artifacts/junit.*\\.xml": ["junit-viewer"]
+          "started.json|finished.json":
+          - "metadata-viewer"
+          "build-log.txt":
+          - "buildlog-viewer"
+          "artifacts/junit.*\\.xml":
+          - "junit-viewer"
 
     prowjob_namespace: default
     pod_namespace: test-pods
