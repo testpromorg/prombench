@@ -131,7 +131,8 @@ export OAUTH_TOKEN=***Replace with the generated token from github***
     -v CLUSTER_NAME:$CLUSTER_NAME -v PROJECT_ID:$PROJECT_ID \
     -v GITHUB_ORG:$GITHUB_ORG -v DOMAIN_NAME:$DOMAIN_NAME \
     -f manifests/prow/config_configmap.yaml \
-    -f manifests/prow/plugins_configmap.yaml
+    -f manifests/prow/plugins_configmap.yaml \
+    -f manifests/prow/job-config_configmap.yaml
 ```
 
 - Deploy all prow components

@@ -6,7 +6,7 @@ metadata:
   labels:
     app: hook
 spec:
-  replicas: 4
+  replicas: 2
   strategy:
     type: RollingUpdate
     rollingUpdate:
@@ -30,6 +30,7 @@ spec:
         - --dry-run=false
         - --github-endpoint=https://api.github.com
         - --config-path=/etc/config/config.yaml
+        - --job-config-path=/etc/job-config
         ports:
           - name: http
             containerPort: 8888
@@ -45,6 +46,9 @@ spec:
           readOnly: true
         - name: plugins
           mountPath: /etc/plugins
+          readOnly: true
+        - name: job-config
+          mountPath: /etc/job-config
           readOnly: true
         livenessProbe:
           httpGet:
@@ -72,5 +76,8 @@ spec:
       - name: plugins
         configMap:
           name: plugins
+      - name: job-config
+        configMap:
+          name: job-config
       nodeSelector:
         cloud.google.com/gke-nodepool: prow
