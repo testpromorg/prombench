@@ -6,7 +6,7 @@ data:
   config.yaml: |
     plank:
       job_url_template: 'jjj'
-      report_template: ''
+      report_template: 'aksjaksj'
       job_url_prefix: ''
       allow_cancellations: true
       pod_pending_timeout: 60m
