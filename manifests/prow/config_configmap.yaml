@@ -5,7 +5,7 @@ metadata:
 data:
   config.yaml: |
     plank:
-      job_url_template: 'jjj'
+      job_url_template: 'aaajjj'
       report_template: 'aksjaksj sadadsj'
       job_url_prefix: ''
       allow_cancellations: true
