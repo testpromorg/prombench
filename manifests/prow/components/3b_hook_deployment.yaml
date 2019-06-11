@@ -22,29 +22,6 @@ spec:
     spec:
       serviceAccountName: "hook"
       terminationGracePeriodSeconds: 180
-      initContainers:
-      - name: clone_prombench
-        image: alpine/git:1.0.7
-        args:
-          - clone
-          - --single-branch
-          - --
-          - https://github.com/testpromorg/prombench.git
-          - /prombench
-        volumeMounts:
-        - name: prombench
-          mountPath: /prombench
-      - name: prow_config_bootstrapper
-        image: gcr.io/k8s-prow/config-bootstrapper:v20190608-493ef838c
-        args:
-	      - --dry-run=false
-	      - --source-path=/prombench
-	      - --config-path=/prombench/manifests/prow/config.yaml
-	      - --plugin-config=/prombench/manifests/prow/plugins.yaml
-	      - --job-config-path=/prombench/manifests/prow/jobs
-        volumeMounts:
-        - name: prombench
-          mountPath: /prombench
       containers:
       - name: hook
         image: gcr.io/k8s-prow/hook:v20190607-8a7f32bfd
@@ -102,7 +79,5 @@ spec:
       - name: job-config
         configMap:
           name: job-config
-      - name: prombench
-        emptyDir: {}
       nodeSelector:
         cloud.google.com/gke-nodepool: prow

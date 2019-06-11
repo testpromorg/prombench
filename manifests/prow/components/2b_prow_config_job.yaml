@@ -1,0 +1,36 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: prow-config-bootstrap
+spec:
+  template:
+    spec:
+      initContainers:
+      - name: clone-prombench
+        image: alpine/git:1.0.7
+        args:
+        - clone
+        - --single-branch
+        - --
+        - https://github.com/testpromorg/prombench.git
+        - /prombench
+        volumeMounts:
+        - name: prombench
+          mountPath: /prombench
+      containers:
+      - name: prow-config-bootstrapper
+        image: gcr.io/k8s-prow/config-bootstrapper:v20190608-493ef838c
+        args:
+        - --dry-run=false
+        - --source-path=/prombench
+        - --config-path=/prombench/manifests/prow/config.yaml
+        - --plugin-config=/prombench/manifests/prow/plugins.yaml
+        - --job-config-path=/prombench/manifests/prow/jobs
+        volumeMounts:
+        - name: prombench
+          mountPath: /prombench
+      restartPolicy: Never
+      volumes:
+      - name: prombench
+        emptyDir: {}
+  backoffLimit: 4
