@@ -5,7 +5,7 @@ metadata:
 data:
   config.yaml: |
     plank:
-      job_url_template: 'job url template'
+      job_url_template: 'job urgggl template'
       report_template: 'report template'
       job_url_prefix: 'http://prometheus.io'
       allow_cancellations: true
