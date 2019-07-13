@@ -1,0 +1,33 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: sinker
+  labels:
+    app: sinker
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: sinker
+  template:
+    metadata:
+      labels:
+        app: sinker
+    spec:
+      serviceAccountName: "sinker"
+      containers:
+      - name: sinker
+        args:
+        - --config-path=/etc/config/config.yaml
+        - --dry-run=false
+        image: gcr.io/k8s-prow/sinker:v20190711-664ef040d
+        volumeMounts:
+        - name: prow-config
+          mountPath: /etc/config
+          readOnly: true
+      volumes:
+      - name: prow-config
+        configMap:
+          name: prow-config
+      nodeSelector:
+        cloud.google.com/gke-nodepool: prow

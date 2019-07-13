@@ -78,12 +78,8 @@ export DOMAIN_NAME=prombench.prometheus.io // Can be set to any other custom dom
 - Deploy all internal prow components
 
 ```
-export GITHUB_ORG=prometheus
-export GITHUB_REPO=prometheus
-
 ./prombench gke resource apply -a $AUTH_FILE -v PROJECT_ID:$PROJECT_ID \
-    -v ZONE:$ZONE -v CLUSTER_NAME:$CLUSTER_NAME -v DOMAIN_NAME:$DOMAIN_NAME \
-    -v GITHUB_ORG:$GITHUB_ORG -v GITHUB_REPO:$GITHUB_REPO \
+    -v ZONE:$ZONE -v CLUSTER_NAME:$CLUSTER_NAME \
     -f manifests/prow/components
 ```
 

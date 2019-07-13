@@ -1,0 +1,42 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: plank
+  labels:
+    app: plank
+spec:
+  replicas: 1 # Do not scale up.
+  strategy:
+    type: Recreate
+  selector:
+    matchLabels:
+      app: plank
+  template:
+    metadata:
+      labels:
+        app: plank
+    spec:
+      serviceAccountName: "plank"
+      containers:
+      - name: plank
+        image: gcr.io/k8s-prow/plank:v20190711-664ef040d
+        args:
+        - --dry-run=false
+        - --github-endpoint=https://api.github.com
+        - --config-path=/etc/config/config.yaml
+        volumeMounts:
+        - name: oauth
+          mountPath: /etc/github
+          readOnly: true
+        - name: prow-config
+          mountPath: /etc/config
+          readOnly: true
+      volumes:
+      - name: oauth
+        secret:
+          secretName: oauth-token
+      - name: prow-config
+        configMap:
+          name: prow-config
+      nodeSelector:
+        cloud.google.com/gke-nodepool: prow
