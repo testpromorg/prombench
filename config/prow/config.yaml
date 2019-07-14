@@ -2,7 +2,7 @@ plank:
   job_url_template: 'job url template'
   report_template: 'report template'
   job_url_prefix: 'http://prometheus.io'
-  allow_cancellations: true
+  allow_cancellations: true #kjsakjs
   pod_pending_timeout: 60m
   default_decoration_config:
     timeout: 2h
