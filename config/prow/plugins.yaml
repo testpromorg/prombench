@@ -1,0 +1,22 @@
+plugins:
+  prometheus/prometheus:
+  - lgtm
+  - wip
+  #- prombenchbenchmark
+  prometheus/prombench:
+  - wip
+  - config-updater
+
+config_updater:
+  maps:
+    config/prow/config.yaml:
+      name: prow-config
+    config/prow/plugins.yaml:
+      name: prow-config
+
+#external_plugins:
+#  prometheus/prombench:
+#  - name: prombenchbenchmark
+#    endpoint: http://prometheus.io
+#    events:
+#    - pull_request
