@@ -1,9 +1,9 @@
 plugins:
-  prometheus/prometheus:
+  testpromorg/prometheus:
   - lgtm
   - wip
   #- prombenchbenchmark
-  prometheus/prombench:
+  testpromorg/prombench:
   - wip
   - config-updater
 
