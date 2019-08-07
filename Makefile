@@ -13,7 +13,7 @@ deploy: nodepool_create resource_apply
 clean: resource_delete nodepool_delete
 
 nodepool_create:
-	$(PROMBENCH_CMD) gke nodepool create -a ${AUTH_FILE} \
+	$(PROMBENCH_CMD) gke nodepool create -a '${AUTH_FILE}' \
 		-v ZONE:${ZONE} -v PROJECT_ID:${PROJECT_ID} -v CLUSTER_NAME:${CLUSTER_NAME} -v PR_NUMBER:${PR_NUMBER} \
 		-f manifests/prombench/nodepools.yaml
 
