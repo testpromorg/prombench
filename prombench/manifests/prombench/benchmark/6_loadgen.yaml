@@ -77,7 +77,7 @@ spec:
         - "-v"
         - "PR_NUMBER:{{ .PR_NUMBER }}"        #Used to specify fake-webserver's namespace
         - "13"                                #Scale Up replicas
-        - "1"                                 #Scale Down replicas
+        - "10"                                 #Scale Down replicas
         - "15m"                               #Sleep Interval between scaling
         volumeMounts:
         - name: webserver-config-volume
